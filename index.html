@@ -1,37 +1,59 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <link rel="stylesheet" href="style.css" type="text/css" />
+    <title>Tic Tac Toe</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Tic Tac Toe</title>
-</head>
+  <body>
+    <div id="container">
+      <h2>Tic Tac Toe</h2>
 
-<body>
-  <h2>Tic Tac Toe</h2>
-  <div class="board">
-    <div id="row-1">
-      <div id="cell-0"></div>
-      <div id="cell-1"></div>
-      <div id="cell-2"></div>
+      <p id="currentTurn"></p>
+      <p id="timePlayed">Time Elapsed<span id="timeCounted">0</span>  seconds </p>
+
+      <div class="board">
+        <div id="row-1">
+          <div id="cell-0"></div>
+          <div id="cell-1"></div>
+          <div id="cell-2"></div>
+        </div>
+        <div id="row-2">
+          <div id="cell-3"></div>
+          <div id="cell-4"></div>
+          <div id="cell-5"></div>
+        </div>
+        <div id="row-3">
+          <div id="cell-6"></div>
+          <div id="cell-7"></div>
+          <div id="cell-8"></div>
+        </div>
+      </div>
     </div>
-    <div id="row-2">
-      <div id="cell-3"></div>
-      <div id="cell-4"></div>
-      <div id="cell-5"></div>
+    <div class="status">
+      <button id="start" type="button">Start Game</button>
+      <button id="reset" type="button">Reset Game</button>
+      <input type="radio" id="vs player" name="Player" value="" />
+      <label for="vs player"> Player vs Player </label>
+      <input type="radio" id="vs Computer" name="Player" value="" />
+      <label for="vs player"> Player vs Computer </label>
+      <input
+        type="text"
+        id="player 1"
+        name="name"
+        placeholder="Player 1 Name"
+      />
+      <input
+        type="text"
+        id="player 2"
+        name="name"
+        placeholder="Player 2 Name"
+      />
     </div>
-    <div id="row-3">
-      <div id="cell-6"></div>
-      <div id="cell-7"></div>
-      <div id="cell-8"></div>
-    </div>
-  </div>
 
-  <div class="status">
-    <button id="start" type="button">Start Game</button>
-  </div>
-  <script src="main.js"></script>
-</body>
-
+    <script src="main.js"></script>
+  </body>
 </html>
