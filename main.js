@@ -20,6 +20,9 @@ function startGame() {
   document.getElementById("start").disabled = true;
   gameRunning = true;
   vsComputer = document.getElementById("vs computer").checked;
+  if(vsComputer){
+      playerO = 'Computer';
+  }
   document.getElementById("currentTurn").textContent =
     "It's " + playerX + "'s Turn!";
   document.getElementById("pregameInput").style.display = "none";
@@ -34,6 +37,12 @@ function chooseCell(cell) {
       return;
     }
     if (currentPlayer === "X") {
+        if (gameRunning && checkDraw()) {
+            alert("It's a Draw!");
+            gameRunning = false;
+            clearInterval(timerInterval);
+            return;
+          }
       currentPlayer = "O";
       document.getElementById("currentTurn").textContent =
         "It's " + playerO + "'s Turn!";
@@ -41,6 +50,12 @@ function chooseCell(cell) {
         cpuTurn();
       }
     } else {
+        if (gameRunning && checkDraw()) {
+            alert("It's a Draw!");
+            gameRunning = false;
+            clearInterval(timerInterval);
+            return;
+          }
       currentPlayer = "X";
       document.getElementById("currentTurn").textContent =
         "It's " + playerX + "'s Turn!";
@@ -53,12 +68,6 @@ function chooseCell(cell) {
 function playerTurn(event) {
   if (gameRunning) {
     chooseCell(event.target);
-  }
-  if (gameRunning && checkDraw()) {
-    alert("It's a Draw!");
-    gameRunning = false;
-    clearInterval(timerInterval);
-    return;
   }
 }
 //check if all cells are filled
@@ -259,9 +268,23 @@ function incrementTimer() {
   }
   timeDisplay.textContent = hours + ":" + minutes + ":" + seconds;
 }
+//Computer player logic
 function cpuTurn() {
-  alert("Computer player not implemented yet.");
-  reset();
+  if (document.getElementById("cell-4").textContent === "") {
+    chooseCell(document.getElementById("cell-4"));
+  } else {
+    let selection = Math.floor(Math.random() * 7);
+    if (selection >= 4) {
+      selection++;
+    }
+    while (document.getElementById("cell-" + selection).textContent !== "") {
+      selection = Math.floor(Math.random() * 7);
+      if (selection >= 4) {
+        selection++;
+      }
+    }
+    chooseCell(document.getElementById('cell-' + selection));
+  }
 }
 //reset variables to default, clear timer, change visibility back to pregame state, and clear cells
 function reset() {
@@ -295,6 +318,7 @@ function reset() {
   document.getElementById("cell-8").style.backgroundColor = "";
   document.getElementById("timeCounted").textContent = "0:00:00";
 }
+//add event handlers
 document.getElementById("cell-0").addEventListener("click", playerTurn);
 document.getElementById("cell-1").addEventListener("click", playerTurn);
 document.getElementById("cell-2").addEventListener("click", playerTurn);

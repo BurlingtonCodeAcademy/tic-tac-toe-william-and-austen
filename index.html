@@ -13,11 +13,12 @@
       <div id="container">
         <h2>Tic Tac Toe</h2>
         <div id="gameDisplay" style="display: none">
+          <!--Game Info-->
           <p id="currentTurn"></p>
           <p id="timePlayed">
             Time Elapsed <span id="timeCounted"> 0:00:00 </span> seconds
           </p>
-
+          <!--Game Board-->
           <div class="board">
             <div id="row-1">
               <div class="cell" id="cell-0"></div>
@@ -38,11 +39,13 @@
         </div>
 
         <div class="status">
+          <!--Buttons-->
           <button id="start" onclick="startGame()" type="button">
             Start Game
           </button>
           <button id="reset" onclick="reset()" type="button">Reset Game</button>
           <div id="pregameInput">
+            <!--Input for game settings-->
             <div class = 'combo'>
             <input type="radio" id="vs player" name="Player" value="" checked/>
             <label for="vs player"> Player vs Player </label>
