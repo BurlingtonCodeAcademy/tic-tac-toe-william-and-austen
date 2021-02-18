@@ -1,49 +1,65 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  #container {
-    min-height:100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    background: linear-gradient(90deg, purple, lavender);
-    
-  }
- 
-  .board {
-    display: grid;
-    width: 300px;
-    height: 300px;
-    grid-template-columns: auto auto auto;
-  }
-  .cell {
-    display: flex;
-    width: 100px;
-    height: 100px;
-    align-items: center;
-    justify-content: center;
-    font-size: 3rem;
-    font-weight: bold;
-    border: 3px solid black;
-    transition: background 0.2s ease-in-out;
-  }
-  
-  #pregameInput{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-column-end: span 2;
-  }
-  .status{
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    
-  }
-  
-  
-    button:hover {
-      cursor: pointer;
-    }
-    
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: aquamarine;
+}
+#container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(70deg, purple, teal);
+}
+
+.board {
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template-columns: auto auto auto;
+  border: 3px solid black;
+  margin-bottom: 10px;
+}
+.cell {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  border: 3px solid black;
+  transition: background 0.2s ease-in-out;
+}
+
+#pregameInput {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-end: span 2;
+}
+#gameDisplay {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+button {
+  background-color: orchid;
+  border-radius: 5px;
+}
+input {
+  background-color: purple;
+  border-radius: 5px;
+}
+button:hover {
+  cursor: pointer;
+}
+input::placeholder {
+  color: aliceblue;
+}
