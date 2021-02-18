@@ -9,58 +9,64 @@
   </head>
 
   <body>
-    <div class = 'wrap'>
-    <div id="container">
-      <h2>Tic Tac Toe</h2>
-      <div id="game display">
-        <p id="currentTurn"></p>
-        <p id="timePlayed">
-          Time Elapsed<span id="timeCounted"> 0:00:00 </span> seconds
-        </p>
+    <div class="wrap">
+      <div id="container">
+        <h2>Tic Tac Toe</h2>
+        <div id="gameDisplay" style="display: none">
+          <p id="currentTurn"></p>
+          <p id="timePlayed">
+            Time Elapsed<span id="timeCounted"> 0:00:00 </span> seconds
+          </p>
 
-        <div class="board">
-          <div id="row-1">
-            <div id="cell-0"></div>
-            <div id="cell-1"></div>
-            <div id="cell-2"></div>
+          <div class="board">
+            <div id="row-1">
+              <div class="cell" id="cell-0"></div>
+              <div class="cell" id="cell-1"></div>
+              <div class="cell" id="cell-2"></div>
+            </div>
+            <div id="row-2">
+              <div class="cell" id="cell-3"></div>
+              <div class="cell" id="cell-4"></div>
+              <div class="cell" id="cell-5"></div>
+            </div>
+            <div id="row-3">
+              <div class="cell" id="cell-6"></div>
+              <div class="cell" id="cell-7"></div>
+              <div class="cell" id="cell-8"></div>
+            </div>
           </div>
-          <div id="row-2">
-            <div id="cell-3"></div>
-            <div id="cell-4"></div>
-            <div id="cell-5"></div>
+        </div>
+
+        <div class="status">
+          <button id="start" onclick="startGame()" type="button">
+            Start Game
+          </button>
+          <button id="reset" onclick="reset()" type="button">Reset Game</button>
+          <div id="pregameInput">
+            <div class = 'combo'>
+            <input type="radio" id="vs player" name="Player" value="" />
+            <label for="vs player"> Player vs Player </label>
           </div>
-          <div id="row-3">
-            <div id="cell-6"></div>
-            <div id="cell-7"></div>
-            <div id="cell-8"></div>
+          <div class = 'combo'>
+            <input type="radio" id="vs computer" name="Player" value="" />
+            <label for="vs computer"> Player vs Computer </label>
+          </div>
+            <input
+              type="text"
+              id="player 1"
+              name="name"
+              placeholder="Player 1 Name"
+            />
+            <input
+              type="text"
+              id="player 2"
+              name="name"
+              placeholder="Player 2 Name"
+            />
           </div>
         </div>
       </div>
-    
-    <div class="status">
-      <button id="start" type="button">Start Game</button>
-      <button id="reset" type="button">Reset Game</button>
-      <div id="pregame input">
-        <input type="radio" id="vs player" name="Player" value="" />
-        <label for="vs player"> Player vs Player </label>
-        <input type="radio" id="vs computer" name="Player" value="" />
-        <label for="vs computer"> Player vs Computer </label>
-        <input
-          type="text"
-          id="player 1"
-          name="name"
-          placeholder="Player 1 Name"
-        />
-        <input
-          type="text"
-          id="player 2"
-          name="name"
-          placeholder="Player 2 Name"
-        />
-      </div>
     </div>
-  </div>
-</div>
     <script src="main.js"></script>
   </body>
 </html>

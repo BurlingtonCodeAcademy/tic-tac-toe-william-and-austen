@@ -21,8 +21,8 @@ function startGame(){
     gameRunning = true;
     vsComputer = document.getElementById('vs computer').checked;
     document.getElementById('currentTurn').textContent = "It's " + playerX +"'s Turn!";
-    document.getElementById('pregame input').style.display = "none";
-    document.getElementById('game display').style.display = "";
+    document.getElementById('pregameInput').style.display = "none";
+    document.getElementById('gameDisplay').style.display = "";
     timerInterval = setInterval(incrementTimer, 1000);
 }
 //Fill cell if available and switch player display
@@ -220,8 +220,8 @@ function reset(){
     gameRunning = false;
     clearInterval(timerInterval);
     timerInterval = "";
-    document.getElementById('game display').style.display = "none";
-    document.getElementById('pregame input').style.display = "";
+    document.getElementById('gameDisplay').style.display = "none";
+    document.getElementById('pregameInput').style.display = "";
     document.getElementById('cell-0').textContent = "";
     document.getElementById('cell-1').textContent = "";
     document.getElementById('cell-2').textContent = "";
