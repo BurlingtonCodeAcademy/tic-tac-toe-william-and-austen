@@ -48,19 +48,55 @@ function chooseCell(cell){
 }
 //pass clicked cell to choose cell
 function playerTurn(event){
-    chooseCell(event.target);
+    if(gameRunning){
+        if(checkDraw()){
+            alert("It's a Draw!");
+            gameRunning = false;
+            return;
+        }
+        chooseCell(event.target);
+    }
+}
+//check if all cells are filled
+function checkDraw(){
+    if(!document.getElementById('cell-0').textContent){
+        return false;
+    }else if(!document.getElementById('cell-1').textContent){
+        return false;
+    }else if(!document.getElementById('cell-2').textContent){
+        return false;
+    }else if(!document.getElementById('cell-3').textContent){
+        return false;
+    }else if(!document.getElementById('cell-4').textContent){
+        return false;
+    }else if(!document.getElementById('cell-5').textContent){
+        return false;
+    }else if(!document.getElementById('cell-6').textContent){
+        return false;
+    }else if(!document.getElementById('cell-7').textContent){
+        return false;
+    }else if(!document.getElementById('cell-8').textContent){
+        return false;
+    }else {
+        return true;
+    }
 }
 //check for win and change winning cells background color
 function checkWin(){
-    let rowOne = [document.getElementById('cell-0'.textContent),document.getElementById('cell-1').textContent,document.getElementById('cell-2').textContent]
-    let rowTwo = [document.getElementById('cell-3'.textContent),document.getElementById('cell-4').textContent,document.getElementById('cell-5').textContent]
-    let rowThree = [document.getElementById('cell-6'.textContent),document.getElementById('cell-7').textContent,document.getElementById('cell-8').textContent]
+    let rowOne = [document.getElementById('cell-0').textContent,document.getElementById('cell-1').textContent,document.getElementById('cell-2').textContent]
+    let rowTwo = [document.getElementById('cell-3').textContent,document.getElementById('cell-4').textContent,document.getElementById('cell-5').textContent]
+    let rowThree = [document.getElementById('cell-6').textContent,document.getElementById('cell-7').textContent,document.getElementById('cell-8').textContent]
     if(rowOne[0] === rowOne[1] && rowOne[1] === rowOne[2] && rowOne[0] !== ""){
         gameRunning = false;
         clearInterval(timerInterval);
         document.getElementById('cell-0').style.backgroundColor = winColor;
         document.getElementById('cell-1').style.backgroundColor = winColor;
         document.getElementById('cell-2').style.backgroundColor = winColor;
+        if(rowOne[0] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowTwo[0] === rowTwo[1] && rowTwo[1] === rowTwo[2] && rowTwo[0] !== ""){
         gameRunning = false;
@@ -68,6 +104,11 @@ function checkWin(){
         document.getElementById('cell-3').style.backgroundColor = winColor;
         document.getElementById('cell-4').style.backgroundColor = winColor;
         document.getElementById('cell-5').style.backgroundColor = winColor;
+        if(rowTwo[0] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowThree[0] === rowThree[1] && rowThree[1] === rowThree[2] && rowThree[0] !== ""){
         gameRunning = false;
@@ -75,6 +116,11 @@ function checkWin(){
         document.getElementById('cell-6').style.backgroundColor = winColor;
         document.getElementById('cell-7').style.backgroundColor = winColor;
         document.getElementById('cell-8').style.backgroundColor = winColor;
+        if(rowThree[0] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowOne[0] === rowTwo[0] && rowTwo[0] === rowThree[0] && rowOne[0] !== ""){
         gameRunning = false;
@@ -82,6 +128,11 @@ function checkWin(){
         document.getElementById('cell-0').style.backgroundColor = winColor;
         document.getElementById('cell-3').style.backgroundColor = winColor;
         document.getElementById('cell-6').style.backgroundColor = winColor;
+        if(rowOne[0] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowOne[1] === rowTwo[1] && rowTwo[1] === rowThree[1] && rowOne[1] !== ""){
         gameRunning = false;
@@ -89,6 +140,11 @@ function checkWin(){
         document.getElementById('cell-1').style.backgroundColor = winColor;
         document.getElementById('cell-4').style.backgroundColor = winColor;
         document.getElementById('cell-7').style.backgroundColor = winColor;
+        if(rowOne[1] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowOne[2] === rowTwo[2] && rowTwo[2] === rowThree[2] && rowOne[2] !== ""){
         gameRunning = false;
@@ -96,6 +152,11 @@ function checkWin(){
         document.getElementById('cell-2').style.backgroundColor = winColor;
         document.getElementById('cell-5').style.backgroundColor = winColor;
         document.getElementById('cell-8').style.backgroundColor = winColor;
+        if(rowOne[2] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowOne[0] === rowTwo[1] && rowTwo[1] === rowThree[2] && rowOne[0] !== ""){
         gameRunning = false;
@@ -103,6 +164,11 @@ function checkWin(){
         document.getElementById('cell-0').style.backgroundColor = winColor;
         document.getElementById('cell-4').style.backgroundColor = winColor;
         document.getElementById('cell-8').style.backgroundColor = winColor;
+        if(rowOne[0] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else if(rowOne[2] === rowTwo[1] && rowTwo[1] === rowThree[0] && rowOne[2] !== ""){
         gameRunning = false;
@@ -110,6 +176,11 @@ function checkWin(){
         document.getElementById('cell-2').style.backgroundColor = winColor;
         document.getElementById('cell-4').style.backgroundColor = winColor;
         document.getElementById('cell-6').style.backgroundColor = winColor;
+        if(rowOne[2] === 'X'){
+            alert(playerX + " has Won!");
+        }else{
+            alert(playerO + ' has Won!');
+        }
         return true;
     }else{
         return false;
@@ -141,6 +212,7 @@ function cpuTurn(){
 }
 //reset variables to default, clear timer, change visibility back to pregame state, and clear cells
 function reset(){
+    document.getElementById('start').disabled = false;
     playerX = 'Player X';
     playerO = 'Player O';
     vsComputer = false;
