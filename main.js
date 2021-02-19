@@ -6,6 +6,7 @@ let currentPlayer = "X";
 let gameRunning = false;
 let timerInterval = "";
 let winColor = "green"; //put hex code here
+let computerTurnCount = 0;
 //functions
 //Set variables based on input, change what is visible for gameplay, and start game
 function startGame() {
@@ -20,8 +21,9 @@ function startGame() {
   document.getElementById("start").disabled = true;
   gameRunning = true;
   vsComputer = document.getElementById("vs computer").checked;
-  if(vsComputer){
-      playerO = 'Computer';
+  if (vsComputer) {
+    playerO = "Computer";
+    computerTurnCount = 0;
   }
   document.getElementById("currentTurn").textContent =
     "It's " + playerX + "'s Turn!";
@@ -37,12 +39,12 @@ function chooseCell(cell) {
       return;
     }
     if (currentPlayer === "X") {
-        if (gameRunning && checkDraw()) {
-            alert("It's a Draw!");
-            gameRunning = false;
-            clearInterval(timerInterval);
-            return;
-          }
+      if (gameRunning && checkDraw()) {
+        alert("It's a Draw!");
+        gameRunning = false;
+        clearInterval(timerInterval);
+        return;
+      }
       currentPlayer = "O";
       document.getElementById("currentTurn").textContent =
         "It's " + playerO + "'s Turn!";
@@ -50,12 +52,12 @@ function chooseCell(cell) {
         cpuTurn();
       }
     } else {
-        if (gameRunning && checkDraw()) {
-            alert("It's a Draw!");
-            gameRunning = false;
-            clearInterval(timerInterval);
-            return;
-          }
+      if (gameRunning && checkDraw()) {
+        alert("It's a Draw!");
+        gameRunning = false;
+        clearInterval(timerInterval);
+        return;
+      }
       currentPlayer = "X";
       document.getElementById("currentTurn").textContent =
         "It's " + playerX + "'s Turn!";
@@ -270,21 +272,318 @@ function incrementTimer() {
 }
 //Computer player logic
 function cpuTurn() {
-  if (document.getElementById("cell-4").textContent === "") {
-    chooseCell(document.getElementById("cell-4"));
-  } else {
-    let selection = Math.floor(Math.random() * 7);
-    if (selection >= 4) {
-      selection++;
-    }
-    while (document.getElementById("cell-" + selection).textContent !== "") {
-      selection = Math.floor(Math.random() * 7);
-      if (selection >= 4) {
-        selection++;
+  let targetCell = 9;
+  switch (computerTurnCount) {
+    case 0://first turn, take center if available, else take corner
+      if (document.getElementById("cell-4").textContent === "") {
+        chooseCell(document.getElementById("cell-4"));
+      } else {
+        chooseCell(document.getElementById("cell-6"));
+      }
+      break;
+    case 1://block player win if it exists, else take corner
+      targetCell = checkCanWin('X');
+      if(targetCell !== 9){
+        chooseCell(document.getElementById('cell-' + targetCell));
+      }else if(document.getElementById('cell-4').textContent === 'X'){
+        chooseCell(document.getElementById('cell-8'));
+      }else if(document.getElementById('cell-1').textContent === 'X' || document.getElementById('cell-5').textContent === 'X'){
+        chooseCell(document.getElementById('cell-2'));
+      }else if(document.getElementById('cell-3').textContent === 'X' || document.getElementById('cell-7').textContent === 'X'){
+        chooseCell(document.getElementById('cell-6'));
+      }else if(document.getElementById('cell-8').textContent === ''){
+        chooseCell(document.getElementById('cell-8'));
+      }else{
+        chooseCell(document.getElementById('cell-6'));
+      }
+      break;
+    default://win if possible, else block player if possible, else take corner
+      targetCell = checkCanWin('O');
+      if(targetCell !== 9){
+        chooseCell(document.getElementById('cell-' + targetCell));
+      }else{
+        targetCell = checkCanWin('X');
+        if(targetCell !== 9){
+          chooseCell(document.getElementById('cell-' + targetCell));
+        }else if(document.getElementById('cell-8').textContent === ""){
+          chooseCell(document.getElementById('cell-8'));
+        }else if(document.getElementById('cell-6').textContent === ""){
+          chooseCell(document.getElementById('cell-6'));
+        }else if(document.getElementById('cell-2').textContent === ""){
+          chooseCell(document.getElementById('cell-2'));
+        }else if(document.getElementById('cell-0').textContent === ""){
+          chooseCell(document.getElementById('cell-0'));
+        }else if(document.getElementById('cell-7').textContent === ""){
+          chooseCell(document.getElementById('cell-7'));
+        }else if(document.getElementById('cell-5').textContent === ""){
+          chooseCell(document.getElementById('cell-5'));
+        }else if(document.getElementById('cell-3').textContent === ""){
+          chooseCell(document.getElementById('cell-3'));
+        }else{
+          chooseCell(document.getElementById('cell-1'));
+        }
+      }
+  }
+  computerTurnCount++;
+}
+//check if there is winning move available for computer player logic
+function checkCanWin(symbol){
+  let lineCount = 0;
+  let currentCell = 0;
+  while(currentCell < 9){
+    if(currentCell === 0 && document.getElementById('cell-0').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-1').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-3').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 1 && document.getElementById('cell-1').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-7').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 2 && document.getElementById('cell-2').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-1').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-5').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 3 && document.getElementById('cell-3').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-5').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 4 && document.getElementById('cell-4').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-1').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-7').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-5').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-3').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 5 && document.getElementById('cell-5').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-3').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 6 && document.getElementById('cell-6').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-3').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-7').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 7 && document.getElementById('cell-7').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-8').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-1').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+    }else if(currentCell === 8 && document.getElementById('cell-8').textContent === ''){
+      lineCount = 0;
+      if(document.getElementById('cell-4').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-0').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-5').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-2').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
+      }
+      lineCount = 0;
+      if(document.getElementById('cell-7').textContent === symbol){
+        lineCount++;
+      }
+      if(document.getElementById('cell-6').textContent === symbol){
+        lineCount++;
+      }
+      if(lineCount >= 2){
+        return currentCell;
       }
     }
-    chooseCell(document.getElementById('cell-' + selection));
+    currentCell++;
   }
+  return currentCell;
 }
 //reset variables to default, clear timer, change visibility back to pregame state, and clear cells
 function reset() {
