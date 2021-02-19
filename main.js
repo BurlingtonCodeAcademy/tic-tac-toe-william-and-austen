@@ -291,6 +291,8 @@ function cpuTurn() {
         chooseCell(document.getElementById('cell-2'));
       }else if(document.getElementById('cell-3').textContent === 'X' || document.getElementById('cell-7').textContent === 'X'){
         chooseCell(document.getElementById('cell-6'));
+      }else if((document.getElementById('cell-8').textContent === 'X' && document.getElementById('cell-0').textContent === 'X') || (document.getElementById('cell-2').textContent === 'X' && document.getElementById('cell-6').textContent === 'X')){
+        chooseCell(document.getElementById('cell-7'));
       }else if(document.getElementById('cell-8').textContent === ''){
         chooseCell(document.getElementById('cell-8'));
       }else{
