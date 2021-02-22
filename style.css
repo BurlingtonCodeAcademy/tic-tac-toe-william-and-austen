@@ -1,0 +1,70 @@
+/*overall styles*/
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  color: aquamarine;
+}
+#container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(70deg, purple, teal);
+}
+/*game styles*/
+.board {
+  display: grid;
+  width: 300px;
+  height: 300px;
+  grid-template-columns: auto auto auto;
+  border: 3px solid black;
+  margin-bottom: 10px;
+}
+.cell {
+  display: flex;
+  width: 100px;
+  height: 100px;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  font-weight: bold;
+  border: 3px solid black;
+  transition: background 0.2s ease-in-out;
+}
+#gameDisplay {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+/*Settings styles*/
+#pregameInput {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-column-end: span 2;
+}
+.status {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+input {
+  background-color: purple;
+  border-radius: 5px;
+}
+input::placeholder {
+  color: aliceblue;
+}
+/*Button styles*/
+button {
+  background-color: orchid;
+  border-radius: 5px;
+}
+button:hover {
+  cursor: pointer;
+}
+button:disabled{
+  background-color: darkslateblue;
+}
